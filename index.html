@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nox — Original Soundtrack</title>
+<meta name="description" content="イマーシブ作品『Nox』（監督 ナカダリオ、第83回ヴェネチア国際映画祭 Venice Immersive 選出）の音楽。音楽 brightwaltz。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#020408">
+<meta property="og:type" content="music.album">
+<meta property="og:title" content="Nox — Original Soundtrack">
+<meta property="og:description" content="イマーシブ作品『Nox』の音楽。音楽 brightwaltz。">
+<meta property="og:image" content="https://brightwaltz.github.io/nox-soundtrack/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400&family=Courier+Prime&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(/(^#|&)k=/.test(location.hash)||localStorage.getItem('nox.k')){d.classList.add('open','checking');var l=document.createElement('link');l.rel='preload';l.as='fetch';l.crossOrigin='anonymous';l.href='audio/check.bin';document.head.appendChild(l);}}catch(e){}})();</script>
+<script type="importmap">{"imports":{"three":"./js/vendor/three.module.min.js"}}</script>
+<link rel="modulepreload" href="js/player.js">
+<link rel="preload" href="data/tracks.json" as="fetch" crossorigin>
+<link rel="preload" href="data/levels.json" as="fetch" crossorigin>
+<link rel="modulepreload" href="js/scene.js">
+<link rel="modulepreload" href="js/vendor/three.module.min.js">
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#tracks">曲目へ移動</a>
+<canvas id="water" aria-hidden="true"></canvas>
+<div class="fallback" aria-hidden="true"></div>
+
+<header class="bar">
+  <p class="mark"><span class="mark-name">“Nox”</span><span class="mark-sub">Original Soundtrack</span></p>
+  <nav class="bar-actions" aria-label="ページ内">
+    <a class="bar-link" href="#tracks">曲目</a>
+    <button class="xr" id="xr-btn" type="button" hidden>VR で聴く</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+   <div class="hero-main">
+    <p class="eyebrow"><span>Special Edition</span><span class="eyebrow-ja">支援者の方への先行公開</span></p>
+    <h1 id="hero-title" class="title">Nox</h1>
+    <p class="lede">イマーシブ作品『Nox』の音楽　全 24 曲</p>
+
+    <div class="now" id="now">
+      <button class="play" id="play" type="button" aria-label="再生" aria-pressed="false">
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg>
+      </button>
+      <div class="now-meta">
+        <p class="now-title"><span class="now-n tnum">01</span><span class="now-name">Holding Ground</span></p>
+        <p class="now-sub"><span class="now-sec">I. 本編曲</span><span class="tnum now-time">0:00 / 1:19</span></p>
+        <div class="progress" id="seek" role="slider" tabindex="0" aria-label="再生位置" aria-valuemin="0" aria-valuemax="79" aria-valuenow="0" aria-valuetext="0:00 / 1:19"><span></span></div>
+      </div>
+    </div>
+
+    <div class="lock-note">
+      <p class="locked-lead">支援者の方は、お知らせのリンクから開くと、ここで全 24 曲をお聴きいただけます。</p>
+      <p class="locked-note">本編曲 5 曲は、審査ののち各ストアで配信の予定です。</p>
+      <p class="locked-err" id="key-err" hidden></p>
+    </div>
+
+    <p class="hint"><span class="hint-fine">ポインタで水に触れると、水が分かれ、また結びつきます</span><span class="hint-touch">指で水に触れると、水が分かれ、また結びつきます</span></p>
+   </div>
+
+    <aside class="credit" aria-label="クレジット">
+      <p><span class="credit-k">監督</span>ナカダリオ</p>
+      <p><span class="credit-k">音楽</span>brightwaltz</p>
+      <p class="credit-fest">第83回ヴェネチア国際映画祭<br> Venice Immersive 選出</p>
+    </aside>
+  </section>
+
+  <section class="tracks" id="tracks" aria-labelledby="tracks-title">
+    <div class="tracks-head">
+      <h2 id="tracks-title" class="tracks-title">曲目</h2>
+      <p class="tracks-total" id="tracks-total"></p>
+    </div>
+    <div id="list"></div>
+    <footer class="foot">
+      <p>音源は支援者の方への先行公開です。転載・再配布はご遠慮ください。</p>
+      <p class="tnum">© brightwaltz</p>
+    </footer>
+  </section>
+</main>
+
+<div class="dock" id="dock" hidden>
+  <button class="play play-sm" id="dock-play" type="button" aria-label="再生" aria-pressed="false">
+    <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 5.5h3v13h-3zM13.5 5.5h3v13h-3z"/></svg>
+  </button>
+  <p class="dock-title"><span class="dock-n tnum">01</span><span class="dock-name">Holding Ground</span></p>
+  <span class="dock-time tnum">0:00</span>
+  <div class="dock-progress" aria-hidden="true"><span></span></div>
+</div>
+<audio id="audio" preload="auto"></audio>
+</body>
+</html>
