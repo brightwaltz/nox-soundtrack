@@ -145,6 +145,11 @@ html.checking .now { opacity: 0.5; pointer-events: none; }
 .now-sub { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: var(--mute); }
 .now-sec { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .now-time { flex: none; }
+.dl { margin-left: 1em; color: var(--ink); text-underline-offset: 3px; text-decoration-color: var(--line); white-space: nowrap; }
+.dl:hover { color: var(--rim); }
+.sec-note .dl, .sub-head .dl { display: table; margin: 6px 0 0; }
+.now-dl { flex: none; margin-left: auto; }
+.now-dl[hidden] { display: none; }
 /* a 1px line with a tall hit area */
 .progress { margin-top: 0; height: 22px; position: relative; cursor: pointer; touch-action: none; }
 .progress::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }

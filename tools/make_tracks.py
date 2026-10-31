@@ -24,6 +24,7 @@ SECTION_TITLES = {
     "EX": "本編曲（フリー BGM）",
 }
 EXTRA_NOTE = "OpenTracks（旧 DOVA-SYNDROME）で公開中"
+EXTRA_LINK = "https://opentracks.com/bgm/detail/13253"  # 画面の「ダウンロード」の行き先
 
 
 def read_tracks_py() -> tuple[dict, list, list]:
@@ -68,6 +69,7 @@ def main() -> None:
             "extra": extra,
             "file": f"audio/{nid}.bin",
             "duration": duration(PLAIN / f"{nid}.m4a"),
+            **({"link": EXTRA_LINK} if extra else {}),
         })
 
     OUT.parent.mkdir(exist_ok=True)

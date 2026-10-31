@@ -25,6 +25,17 @@ const fmt = s => {
 const [tracks, levels] = await dataReady;
 // the free-BGM piece at the end is shown without a number
 const no = t => (t.extra ? '+' : t.id);
+// its OpenTracks page, where anyone can download it
+function addLink(el, href) {
+  if (!href) return;
+  const a = document.createElement('a');
+  a.className = 'dl';
+  a.href = href;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.textContent = 'ダウンロード ↗';
+  el.append(a);
+}
 
 // ---- track list
 function renderList(open) {
@@ -38,7 +49,7 @@ function renderList(open) {
     let sec = sections.at(-1);
     if (!sec || sec.key !== t.section) sections.push((sec = { key: t.section, mark: t.extra ? '+' : t.section, title: t.sectionTitle, groups: [] }));
     let g = sec.groups.at(-1);
-    if (!g || g.key !== t.group) sec.groups.push((g = { key: t.group, note: t.sectionNote, items: [] }));
+    if (!g || g.key !== t.group) sec.groups.push((g = { key: t.group, note: t.sectionNote, link: t.link, items: [] }));
     g.items.push([i, t]);
   }
   for (const sec of sections) {
@@ -54,7 +65,9 @@ function renderList(open) {
     h.textContent = sec.title;
     // a section with sub-groups names them above each list instead
     const many = sec.groups.length > 1;
-    head.querySelector('.sec-note').textContent = many ? '' : sec.groups[0].note;
+    const note = head.querySelector('.sec-note');
+    note.textContent = many ? '' : sec.groups[0].note;
+    if (!many) addLink(note, sec.groups[0].link);
     el.append(head);
     const body = document.createElement('div');
     body.className = 'sec-body';
@@ -63,6 +76,7 @@ function renderList(open) {
         const sub = document.createElement('p');
         sub.className = 'sub-head';
         sub.textContent = g.note;
+        addLink(sub, g.link);
         body.append(sub);
       }
       const ol = document.createElement('ol');
@@ -146,6 +160,9 @@ if (key) {
       $('.now-n').textContent = no(t);
       $('.now-name').textContent = t.title;
       $('.now-sec').textContent = t.extra ? `${t.sectionTitle}　${t.sectionNote}` : `${t.section}. ${t.sectionTitle}${t.group !== t.section ? `　${t.sectionNote}` : ''}`;
+      const dl = $('.now-dl');
+      dl.hidden = !t.link;
+      if (t.link) dl.href = t.link;
       $('.dock-n').textContent = no(t);
       $('.dock-name').textContent = t.title;
       for (const r of document.querySelectorAll('.trk')) {
