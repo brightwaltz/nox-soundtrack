@@ -23,17 +23,20 @@ const fmt = s => {
 };
 
 const [tracks, levels] = await dataReady;
+// the free-BGM piece at the end is shown without a number
+const no = t => (t.extra ? '+' : t.id);
 
 // ---- track list
 function renderList(open) {
   const list = $('#list');
   list.textContent = '';
   const total = tracks.reduce((a, t) => a + t.duration, 0);
-  $('#tracks-total').textContent = `${tracks.length} 曲　${Math.round(total / 60)} 分`;
+  const extras = tracks.filter(t => t.extra).length;
+  $('#tracks-total').textContent = `${tracks.length - extras} 曲${extras ? `＋${extras}` : ''}　${Math.round(total / 60)} 分`;
   const sections = [];
   for (const [i, t] of tracks.entries()) {
     let sec = sections.at(-1);
-    if (!sec || sec.key !== t.section) sections.push((sec = { key: t.section, title: t.sectionTitle, groups: [] }));
+    if (!sec || sec.key !== t.section) sections.push((sec = { key: t.section, mark: t.extra ? '+' : t.section, title: t.sectionTitle, groups: [] }));
     let g = sec.groups.at(-1);
     if (!g || g.key !== t.group) sec.groups.push((g = { key: t.group, note: t.sectionNote, items: [] }));
     g.items.push([i, t]);
@@ -45,7 +48,7 @@ function renderList(open) {
     const head = document.createElement('div');
     head.className = 'sec-head';
     head.innerHTML = '<p class="sec-num" aria-hidden="true"></p><h3 class="sec-title"></h3><p class="sec-note"></p>';
-    head.querySelector('.sec-num').textContent = sec.key;
+    head.querySelector('.sec-num').textContent = sec.mark;
     const h = head.querySelector('.sec-title');
     h.id = `sec-${sec.key}`;
     h.textContent = sec.title;
@@ -70,7 +73,7 @@ function renderList(open) {
         row.className = 'trk';
         if (open) { row.type = 'button'; row.dataset.i = i; }
         row.innerHTML = '<span class="trk-n tnum"></span><span class="trk-t"></span><span class="trk-d tnum"></span>';
-        row.children[0].textContent = t.id;
+        row.children[0].textContent = no(t);
         row.children[1].textContent = t.title;
         row.children[2].textContent = fmt(t.duration);
         li.append(row);
@@ -140,10 +143,10 @@ if (key) {
     }
     if (st.index !== lastIndex) {
       lastIndex = st.index;
-      $('.now-n').textContent = t.id;
+      $('.now-n').textContent = no(t);
       $('.now-name').textContent = t.title;
-      $('.now-sec').textContent = `${t.section}. ${t.sectionTitle}${t.group !== t.section ? `　${t.sectionNote}` : ''}`;
-      $('.dock-n').textContent = t.id;
+      $('.now-sec').textContent = t.extra ? `${t.sectionTitle}　${t.sectionNote}` : `${t.section}. ${t.sectionTitle}${t.group !== t.section ? `　${t.sectionNote}` : ''}`;
+      $('.dock-n').textContent = no(t);
       $('.dock-name').textContent = t.title;
       for (const r of document.querySelectorAll('.trk')) {
         if (+r.dataset.i === st.index) r.setAttribute('aria-current', 'true');
@@ -157,7 +160,7 @@ if (key) {
           artwork: [{ src: new URL('assets/art-512.jpg', location.href).href, sizes: '512x512', type: 'image/jpeg' }],
         });
       }
-      if (scene) scene.setLabel(`${t.id}   ${t.title}`);
+      if (scene) scene.setLabel(`${no(t)}   ${t.title}`);
     }
     for (const r of document.querySelectorAll('.trk[aria-current]')) r.classList.toggle('is-playing', st.playing);
     const time = st.error ? '読み込めませんでした。もう一度押してください' : st.loading ? '読み込み中…' : `${fmt(st.time)} / ${fmt(st.duration)}`;

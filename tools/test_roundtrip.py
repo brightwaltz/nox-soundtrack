@@ -24,9 +24,9 @@ def main() -> int:
     s = KEY_FILE.read_text().strip()
     aes = AESGCM(base64.urlsafe_b64decode(s + "=" * (-len(s) % 4)))
     failed = 0
-    for n in range(1, 25):
-        nid = f"{n:02d}"
-        want = hashlib.sha256((PLAIN / f"{nid}.m4a").read_bytes()).hexdigest()
+    for plain in sorted(PLAIN.glob("*.m4a")):
+        nid = plain.stem
+        want = hashlib.sha256(plain.read_bytes()).hexdigest()
         got = hashlib.sha256(decrypt(aes, (AUDIO / f"{nid}.bin").read_bytes())).hexdigest()
         ok = want == got
         failed += not ok

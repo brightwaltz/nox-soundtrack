@@ -2,8 +2,8 @@
 
 実行の順番（リポジトリの直下で）：
 
-1. 平文の抜き出しは済み（`build/plain/01.m4a`〜`24.m4a`。`build/` は git に入れない）
-2. 暗号化：`uv run --with cryptography python -I tools/encrypt_audio.py` → `audio/NN.bin` と `audio/check.bin`
+1. 平文の抜き出しは済み（`build/plain/01.m4a`〜`25.m4a`。`build/` は git に入れない）。01〜24 は支援者向け動画の音声、25 は本編で使ったフリー BGM（Piano Improvisation 2020 Spring No.3、OpenTracks で公開中）を動画と同じ決まり（−16 LUFS・−1.5 dBTP までのゲインだけ）で AAC 192k にしたもの。2026-10-31 に 01 と 08 を入れ替えた（平文と .bin をそのまま入れ替えたので、暗号化し直していない）
+2. 暗号化：`uv run --with cryptography python -I tools/encrypt_audio.py` → `audio/NN.bin` と `audio/check.bin`。1 曲だけなら番号を付ける（`… encrypt_audio.py 25`。ほかの .bin と check.bin は変わらない）
 3. 曲データ：`uv run python -I tools/make_tracks.py` → `data/tracks.json`（ffprobe が要る）
 4. 音量の包絡線：`uv run python -I tools/make_levels.py` → `data/levels.json`（ffmpeg が要る。1/12 秒ごと・曲ごとに正規化・base36 の 1 文字。最後に全曲の長さを `ceil(duration*12)` と照らす。平文を作り直したら tracks.json と一緒に作り直す）
 5. テスト：`uv run --with cryptography python -I tools/test_roundtrip.py` と `node tools/test_webcrypto.mjs`

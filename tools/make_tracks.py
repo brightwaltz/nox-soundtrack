@@ -1,6 +1,7 @@
 """nox-release/tracks.py と build/plain/NN.m4a の長さから data/tracks.json を作る。
 
-tracks.py は import せず、ast で SECTIONS と TRACKS の値だけ読む。
+tracks.py は import せず、ast で SECTIONS・TRACKS・EXTRAS の値だけ読む。
+EXTRAS（本編で使ったフリー BGM）は 25 番以降のファイルに置き、画面では番号を出さない（"extra": true）。
 実行：uv run python -I tools/make_tracks.py（ffprobe が要る）
 """
 
@@ -20,18 +21,20 @@ SECTION_TITLES = {
     "II": "Another Stories",
     "III": "Concept Sketches",
     "IV": "AI 再解釈（Suno）",
+    "EX": "本編曲（フリー BGM）",
 }
+EXTRA_NOTE = "OpenTracks（旧 DOVA-SYNDROME）で公開中"
 
 
-def read_tracks_py() -> tuple[dict, list]:
+def read_tracks_py() -> tuple[dict, list, list]:
     tree = ast.parse(TRACKS_PY.read_text(encoding="utf-8"))
     values = {}
     for node in tree.body:
         if isinstance(node, ast.Assign) and len(node.targets) == 1:
             name = getattr(node.targets[0], "id", None)
-            if name in ("SECTIONS", "TRACKS"):
+            if name in ("SECTIONS", "TRACKS", "EXTRAS"):
                 values[name] = ast.literal_eval(node.value)
-    return values["SECTIONS"], values["TRACKS"]
+    return values["SECTIONS"], values["TRACKS"], values.get("EXTRAS", [])
 
 
 def duration(path: Path) -> float:
@@ -44,23 +47,25 @@ def duration(path: Path) -> float:
 
 
 def main() -> None:
-    sections, tracks = read_tracks_py()
+    sections, tracks, extras = read_tracks_py()
     if len(tracks) != 24:
         sys.exit(f"TRACKS が 24 曲ではない（{len(tracks)} 曲）")
 
     items = []
-    for n, (group, title, _src) in enumerate(tracks, start=1):
+    for n, (group, title, _src) in enumerate(tracks + extras, start=1):
         nid = f"{n:02d}"
         section = group.split("-")[0]
+        extra = n > len(tracks)
         items.append({
             "n": n,
             "id": nid,
             "title": title,
             "section": section,
             "sectionTitle": SECTION_TITLES[section],
-            "sectionNote": sections[group][1],
+            "sectionNote": EXTRA_NOTE if extra else sections[group][1],
             "group": group,
             "ai": section == "IV",
+            "extra": extra,
             "file": f"audio/{nid}.bin",
             "duration": duration(PLAIN / f"{nid}.m4a"),
         })

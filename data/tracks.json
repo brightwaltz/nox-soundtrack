@@ -2,14 +2,15 @@
   {
     "n": 1,
     "id": "01",
-    "title": "Holding Ground",
+    "title": "Frozen Mid-Run",
     "section": "I",
     "sectionTitle": "本編曲",
     "sectionNote": "新曲アルバム（配信予定）",
     "group": "I",
     "ai": false,
+    "extra": false,
     "file": "audio/01.bin",
-    "duration": 78.99
+    "duration": 138.06
   },
   {
     "n": 2,
@@ -20,6 +21,7 @@
     "sectionNote": "新曲アルバム（配信予定）",
     "group": "I",
     "ai": false,
+    "extra": false,
     "file": "audio/02.bin",
     "duration": 127.79
   },
@@ -32,6 +34,7 @@
     "sectionNote": "新曲アルバム（配信予定）",
     "group": "I",
     "ai": false,
+    "extra": false,
     "file": "audio/03.bin",
     "duration": 134.61
   },
@@ -44,6 +47,7 @@
     "sectionNote": "新曲アルバム（配信予定）",
     "group": "I",
     "ai": false,
+    "extra": false,
     "file": "audio/04.bin",
     "duration": 124.84
   },
@@ -56,6 +60,7 @@
     "sectionNote": "新曲アルバム（配信予定）",
     "group": "I",
     "ai": false,
+    "extra": false,
     "file": "audio/05.bin",
     "duration": 170.0
   },
@@ -68,6 +73,7 @@
     "sectionNote": "未使用曲",
     "group": "II",
     "ai": false,
+    "extra": false,
     "file": "audio/06.bin",
     "duration": 140.0
   },
@@ -80,20 +86,22 @@
     "sectionNote": "未使用曲",
     "group": "II",
     "ai": false,
+    "extra": false,
     "file": "audio/07.bin",
     "duration": 26.15
   },
   {
     "n": 8,
     "id": "08",
-    "title": "Frozen Mid-Run",
+    "title": "Holding Ground",
     "section": "II",
     "sectionTitle": "Another Stories",
     "sectionNote": "未使用曲",
     "group": "II",
     "ai": false,
+    "extra": false,
     "file": "audio/08.bin",
-    "duration": 138.06
+    "duration": 78.99
   },
   {
     "n": 9,
@@ -104,6 +112,7 @@
     "sectionNote": "未使用曲",
     "group": "II",
     "ai": false,
+    "extra": false,
     "file": "audio/09.bin",
     "duration": 142.05
   },
@@ -116,6 +125,7 @@
     "sectionNote": "未使用曲",
     "group": "II",
     "ai": false,
+    "extra": false,
     "file": "audio/10.bin",
     "duration": 78.99
   },
@@ -128,6 +138,7 @@
     "sectionNote": "初期構想のスケッチ",
     "group": "III",
     "ai": false,
+    "extra": false,
     "file": "audio/11.bin",
     "duration": 31.53
   },
@@ -140,6 +151,7 @@
     "sectionNote": "初期構想のスケッチ",
     "group": "III",
     "ai": false,
+    "extra": false,
     "file": "audio/12.bin",
     "duration": 34.95
   },
@@ -152,6 +164,7 @@
     "sectionNote": "初期構想のスケッチ",
     "group": "III",
     "ai": false,
+    "extra": false,
     "file": "audio/13.bin",
     "duration": 36.49
   },
@@ -164,6 +177,7 @@
     "sectionNote": "初期構想のスケッチ",
     "group": "III",
     "ai": false,
+    "extra": false,
     "file": "audio/14.bin",
     "duration": 31.74
   },
@@ -176,6 +190,7 @@
     "sectionNote": "ジャズ",
     "group": "IV-J",
     "ai": true,
+    "extra": false,
     "file": "audio/15.bin",
     "duration": 194.72
   },
@@ -188,6 +203,7 @@
     "sectionNote": "ジャズ",
     "group": "IV-J",
     "ai": true,
+    "extra": false,
     "file": "audio/16.bin",
     "duration": 209.88
   },
@@ -200,6 +216,7 @@
     "sectionNote": "ジャズ",
     "group": "IV-J",
     "ai": true,
+    "extra": false,
     "file": "audio/17.bin",
     "duration": 209.16
   },
@@ -212,6 +229,7 @@
     "sectionNote": "ジャズ",
     "group": "IV-J",
     "ai": true,
+    "extra": false,
     "file": "audio/18.bin",
     "duration": 229.88
   },
@@ -224,6 +242,7 @@
     "sectionNote": "クラシック",
     "group": "IV-C",
     "ai": true,
+    "extra": false,
     "file": "audio/19.bin",
     "duration": 173.16
   },
@@ -236,6 +255,7 @@
     "sectionNote": "クラシック",
     "group": "IV-C",
     "ai": true,
+    "extra": false,
     "file": "audio/20.bin",
     "duration": 199.8
   },
@@ -248,6 +268,7 @@
     "sectionNote": "クラシック",
     "group": "IV-C",
     "ai": true,
+    "extra": false,
     "file": "audio/21.bin",
     "duration": 192.48
   },
@@ -260,6 +281,7 @@
     "sectionNote": "クラシック",
     "group": "IV-C",
     "ai": true,
+    "extra": false,
     "file": "audio/22.bin",
     "duration": 198.88
   },
@@ -272,6 +294,7 @@
     "sectionNote": "チルアウト",
     "group": "IV-K",
     "ai": true,
+    "extra": false,
     "file": "audio/23.bin",
     "duration": 187.6
   },
@@ -284,7 +307,21 @@
     "sectionNote": "チルアウト",
     "group": "IV-K",
     "ai": true,
+    "extra": false,
     "file": "audio/24.bin",
     "duration": 188.2
+  },
+  {
+    "n": 25,
+    "id": "25",
+    "title": "Piano Improvisation 2020 Spring No.3",
+    "section": "EX",
+    "sectionTitle": "本編曲（フリー BGM）",
+    "sectionNote": "OpenTracks（旧 DOVA-SYNDROME）で公開中",
+    "group": "EX",
+    "ai": false,
+    "extra": true,
+    "file": "audio/25.bin",
+    "duration": 775.11
   }
 ]

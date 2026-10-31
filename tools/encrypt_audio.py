@@ -2,7 +2,8 @@
 
 形式：12 バイトの乱数 IV ＋ 暗号文＋16 バイトのタグ（AAD なし。WebCrypto の AES-GCM と同じ並び）。
 鍵は secret/content_key.txt（base64url・パディングなし・1 行）。無ければ作り、あれば読む。
-実行：uv run --with cryptography python -I tools/encrypt_audio.py
+実行：uv run --with cryptography python -I tools/encrypt_audio.py [番号 ...]
+番号（25 など）を付けるとその曲だけ暗号化し、check.bin は作り直さない（ほかの曲の .bin を変えないため）。
 """
 
 import base64
@@ -16,7 +17,6 @@ ROOT = Path(__file__).resolve().parent.parent
 PLAIN = ROOT / "build" / "plain"
 AUDIO = ROOT / "audio"
 KEY_FILE = ROOT / "secret" / "content_key.txt"
-COUNT = 24
 CHECK_PLAIN = b"nox-ok"
 
 
@@ -46,7 +46,8 @@ def encrypt(aes: AESGCM, data: bytes) -> bytes:
 
 
 def main() -> None:
-    sources = [PLAIN / f"{n:02d}.m4a" for n in range(1, COUNT + 1)]
+    ids = sys.argv[1:]
+    sources = [PLAIN / f"{i}.m4a" for i in ids] if ids else sorted(PLAIN.glob("*.m4a"))
     missing = [p.name for p in sources if not p.exists()]
     if missing:
         sys.exit(f"平文が足りない：{', '.join(missing)}")
@@ -57,8 +58,9 @@ def main() -> None:
         out = AUDIO / f"{src.stem}.bin"
         out.write_bytes(encrypt(aes, src.read_bytes()))
         print(f"{src.name} -> audio/{out.name}")
-    (AUDIO / "check.bin").write_bytes(encrypt(aes, CHECK_PLAIN))
-    print("check -> audio/check.bin")
+    if not ids:
+        (AUDIO / "check.bin").write_bytes(encrypt(aes, CHECK_PLAIN))
+        print("check -> audio/check.bin")
 
 
 if __name__ == "__main__":
