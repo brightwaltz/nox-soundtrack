@@ -8,6 +8,15 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // Consent mode: no ads on this site, so ad signals are always denied.
+  // No consent banner either, so visitors in the EEA, UK and Switzerland get no analytics cookies.
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied',
+    'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+  });
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'granted'
+  });
   gtag('js', new Date());
 
   gtag('config', 'G-ZFJ255Q8GR');
@@ -90,7 +99,7 @@
     </div>
     <div id="list"></div>
     <footer class="foot">
-      <p>音源は支援者の方への先行公開です。転載・再配布はご遠慮ください。</p>
+      <p>音源は支援者の方への先行公開です。転載・再配布はご遠慮ください。<br>このサイトでは、アクセス解析に Google アナリティクス（Cookie）を使っています。<a class="dl" href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Google によるデータの使用 ↗</a></p>
       <p class="tnum">© brightwaltz</p>
     </footer>
   </section>
